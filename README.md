@@ -41,7 +41,7 @@ Comando para dados de distância: DIST
 			{
 				xQueueReceive(bufferDistancia,&dist,pdMS_TO_TICKS(0));
                 sprintf(stringDistancia,"%d",dist);
-                (sock, stringDistancia, len, 0);
+                send(sock, stringDistancia, len, 0);
 			}
 
 
