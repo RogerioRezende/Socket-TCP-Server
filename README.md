@@ -18,7 +18,9 @@ O cliente irá fazer a soliçitação através dos comandos escrito em um progra
 
 chamado REALTERM que fará a comunição entre CLIENTE e SERVIDOR.
 Comando para dados de temperatura: TEMP
+
 Comando para dados de umidade: UMID 
+
 Comando para dados de distância: DIST
   
 
