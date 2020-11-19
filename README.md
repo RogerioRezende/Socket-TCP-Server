@@ -18,33 +18,64 @@ O cliente irá fazer a soliçitação através dos comandos escrito em um progra
 
 chamado REALTERM que fará a comunição entre CLIENTE e SERVIDOR.
 
-Comando para dados de temperatura: TEMP
+Comando para dados de temperatura: T
 
-Comando para dados de umidade: UMID 
+Comando para dados de umidade: U 
 
-Comando para dados de distância: DIST
+Comando para dados de distância: D
   
 
 
-            if(len>=3 && rx_buffer[0]=='T' && rx_buffer[1]=='E' && rx_buffer[2]=='M' && rx_buffer[3]=='P')
+           
+            if(len>=1 && (rx_buffer[0]=='T' || rx_buffer[0]=='t'))
 			{
 				xQueueReceive(bufferTemperatura,&temp,pdMS_TO_TICKS(0));
+				
+				if(temp < 10)
+					tamanho = 1;
+				else if(temp >= 10 && temp < 100)
+					tamanho = 2;
+				else if(temp >= 100 && temp < 1000)
+					tamanho = 3;
+				
                 sprintf(stringTemperatura,"%d",temp);
-                send(sock, stringTemperatura, len, 0);
+                send(sock, stringTemperatura, tamanho, 0);
+				send(sock, "C  ", 3, 0);
+				
 			}
 
-            else if(len>=3 && rx_buffer[0]=='U' && rx_buffer[1]=='M' && rx_buffer[2]=='I' && rx_buffer[3]=='D')
+            else if(len>=1 && (rx_buffer[0]=='U' || rx_buffer[0]=='u'))
 			{
 				xQueueReceive(bufferUmidade,&umid,pdMS_TO_TICKS(0));
+				
+				if(umid < 10)
+					tamanho = 1;
+				else if(umid >= 10 && umid < 100)
+					tamanho = 2;
+				else if(umid >= 100 && umid < 1000)
+					tamanho = 3;
+				
                 sprintf(stringUmidade,"%d",umid);
-                send(sock, stringUmidade, len, 0);
+                send(sock, stringUmidade, tamanho, 0);
+				send(sock, "%  ", 3, 0);
 			}
 
-            else if(len>=3 && rx_buffer[0]=='D' && rx_buffer[1]=='I' && rx_buffer[2]=='S' && rx_buffer[3]=='T')
+            else if(len>=1 && (rx_buffer[0]=='D' || rx_buffer[0]=='d'))
 			{
 				xQueueReceive(bufferDistancia,&dist,pdMS_TO_TICKS(0));
+	
+				if(dist < 10)
+					tamanho = 1;
+				else if(dist >= 10 && dist < 100)
+					tamanho = 2;
+				else if(dist >= 100 && dist < 1000)
+					tamanho = 3;
+				
                 sprintf(stringDistancia,"%d",dist);
-                send(sock, stringDistancia, len, 0);
+                send(sock, stringDistancia, tamanho, 0);
+				send(sock, "cm  ", 4, 0);
 			}
+
+        }
 
 
