@@ -17,6 +17,7 @@ solicitação de informaçõs seja enviada.
 O cliente irá fazer a soliçitação através dos comandos escrito em um programa de terminal 
 
 chamado REALTERM que fará a comunição entre CLIENTE e SERVIDOR.
+
 Comando para dados de temperatura: TEMP
 
 Comando para dados de umidade: UMID 
