@@ -22,29 +22,26 @@ Comando para dados de umidade: UMID
 Comando para dados de distância: DIST
   
 
-if(len>=3 && rx_buffer[0]=='T' && rx_buffer[1]=='E' && rx_buffer[2]=='M' && 
 
-rx_buffer[3]=='P')
-            {
-                xQueueReceive(bufferTemperatura,&temp,pdMS_TO_TICKS(0));
+            if(len>=3 && rx_buffer[0]=='T' && rx_buffer[1]=='E' && rx_buffer[2]=='M' && rx_buffer[3]=='P')
+			{
+				xQueueReceive(bufferTemperatura,&temp,pdMS_TO_TICKS(0));
                 sprintf(stringTemperatura,"%d",temp);
-                send(sock, stringTemperatura);
-            }
+                send(sock, stringTemperatura, len, 0);
+			}
 
-            else if(len>=3 && rx_buffer[0]=='U' && rx_buffer[1]=='M' && rx_buffer[2]=='I' 
-
-&& rx_buffer[3]=='D')
-            {
-                xQueueReceive(bufferHumidade,&umid,pdMS_TO_TICKS(0));
+            else if(len>=3 && rx_buffer[0]=='U' && rx_buffer[1]=='M' && rx_buffer[2]=='I' && rx_buffer[3]=='D')
+			{
+				xQueueReceive(bufferUmidade,&umid,pdMS_TO_TICKS(0));
                 sprintf(stringUmidade,"%d",umid);
-                send(sock, stringUmidade);
-            }
+                send(sock, stringUmidade, len, 0);
+			}
 
-            else if(len>=3 && rx_buffer[0]=='D' && rx_buffer[1]=='I' && rx_buffer[2]=='S' 
-
-&& rx_buffer[3]=='T')
-            {
-                xQueueReceive(bufferDistancia,&dist,pdMS_TO_TICKS(0));
+            else if(len>=3 && rx_buffer[0]=='D' && rx_buffer[1]=='I' && rx_buffer[2]=='S' && rx_buffer[3]=='T')
+			{
+				xQueueReceive(bufferDistancia,&dist,pdMS_TO_TICKS(0));
                 sprintf(stringDistancia,"%d",dist);
-                send(sock, stringDistancia);
-            }
+                (sock, stringDistancia, len, 0);
+			}
+
+
